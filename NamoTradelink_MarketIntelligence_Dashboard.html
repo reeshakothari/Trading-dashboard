@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Intelligence – Namo Tradelink</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0e14;
+  --bg2:#111520;
+  --bg3:#161c2a;
+  --panel:#1a2133;
+  --panel2:#1f2840;
+  --border:#ffffff0f;
+  --border2:#ffffff18;
+  --ink:#e8edf8;
+  --ink2:#a8b4cc;
+  --ink3:#6b7a94;
+  --gold:#f5a623;
+  --gold-d:#b87a1a;
+  --green:#22c55e;
+  --green-d:#16a34a;
+  --red:#f43f5e;
+  --blue:#3b82f6;
+  --teal:#14b8a6;
+  --accent:#f5a623;
+}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:400;line-height:1.5;min-height:100vh;overflow-x:hidden}
+
+/* — HEADER — */
+header{
+  display:grid;grid-template-columns:1fr auto;align-items:center;
+  padding:1.25rem 2rem;border-bottom:1px solid var(--border2);
+  background:var(--bg2);position:sticky;top:0;z-index:100;
+}
+.logo{display:flex;align-items:center;gap:.75rem}
+.logo-mark{
+  width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold) 0%,#d4841b 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:#0b0e14;
+}
+.logo-text{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--ink)}
+.logo-sub{font-size:10px;font-weight:400;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:1rem}
+.live-badge{
+  display:flex;align-items:center;gap:.4rem;
+  font-family:'DM Mono',monospace;font-size:10px;color:var(--green);
+  background:#22c55e12;border:1px solid #22c55e30;
+  border-radius:4px;padding:4px 10px;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+.last-updated{font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace}
+
+/* — LAYOUT — */
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 65px)}
+
+/* — SIDEBAR — */
+aside{
+  background:var(--bg2);border-right:1px solid var(--border);
+  padding:1.5rem 0;
+}
+.nav-section{margin-bottom:1.5rem}
+.nav-section-label{
+  font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink3);padding:0 1.25rem;margin-bottom:.5rem;display:block;
+}
+.nav-item{
+  display:flex;align-items:center;gap:.65rem;
+  padding:.55rem 1.25rem;font-size:13px;color:var(--ink2);
+  cursor:pointer;border-left:2px solid transparent;
+  transition:all .15s;
+}
+.nav-item:hover{color:var(--ink);background:#ffffff06}
+.nav-item.active{color:var(--gold);border-left-color:var(--gold);background:#f5a62308}
+.nav-item .nav-icon{width:15px;height:15px;opacity:.7;flex-shrink:0}
+.nav-item.active .nav-icon{opacity:1}
+.nav-count{
+  margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;
+  background:#f5a62320;color:var(--gold);border-radius:3px;padding:1px 6px;
+}
+.nav-count.red{background:#f43f5e20;color:var(--red)}
+.nav-count.green{background:#22c55e20;color:var(--green)}
+
+/* — MAIN — */
+main{padding:1.75rem 2rem;overflow-y:auto}
+
+/* — STAT STRIP — */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.75rem}
+.stat{
+  background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  padding:1rem 1.1rem;cursor:default;transition:border-color .2s;
+}
+.stat:hover{border-color:var(--border2)}
+.stat-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.4rem}
+.stat-val{font-family:'Syne',sans-serif;font-weight:700;font-size:1.6rem;color:var(--ink);line-height:1;margin-bottom:.35rem}
+.stat-val span{font-size:.9rem;font-weight:400;color:var(--ink3)}
+.stat-delta{font-size:11px;display:flex;align-items:center;gap:.3rem}
+.stat-delta.up{color:var(--green)}
+.stat-delta.down{color:var(--red)}
+.stat-bar{height:3px;background:var(--border);border-radius:2px;margin-top:.65rem}
+.stat-bar-fill{height:3px;border-radius:2px;animation:barGrow .8s ease both}
+@keyframes barGrow{from{width:0}to{width:var(--w)}}
+
+/* — SECTION HEADER — */
+.section-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;
+}
+.section-hd h2{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--ink);letter-spacing:.02em}
+.section-hd .sub{font-size:11px;color:var(--ink3);margin-left:.5rem;font-weight:400}
+.pill-filter{display:flex;gap:6px}
+.pf{
+  font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 10px;border-radius:4px;border:1px solid var(--border2);
+  color:var(--ink3);cursor:pointer;background:transparent;transition:all .15s;
+}
+.pf.active,.pf:hover{border-color:var(--gold);color:var(--gold);background:#f5a62310}
+
+/* — DEMAND HEATMAP — */
+.heatmap-wrap{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
+.heatmap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:1rem}
+.hm-cell{
+  border-radius:8px;padding:.9rem .75rem;cursor:pointer;
+  transition:transform .15s,filter .15s;position:relative;overflow:hidden;
+}
+.hm-cell:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.hm-product{font-size:11px;font-weight:500;color:rgba(255,255,255,.9);line-height:1.3;margin-bottom:.4rem}
+.hm-demand{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:#fff;line-height:1}
+.hm-change{font-size:10px;margin-top:.25rem;font-family:'DM Mono',monospace}
+.hm-change.up{color:rgba(255,255,255,.8)}
+.hm-change.down{color:rgba(255,255,255,.6)}
+.hm-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.25)}
+.hm-bar-fill{height:100%;background:rgba(255,255,255,.6)}
+
+/* demand intensity colors */
+.d-low{background:#1e3a5f}
+.d-med{background:#1a4a2e}
+.d-high{background:#6b3a0a}
+.d-vhigh{background:#7c1d1d}
+.d-spike{background:#8b1538;animation:spike-glow 2s ease-in-out infinite}
+@keyframes spike-glow{0%,100%{box-shadow:0 0 0 0 #f43f5e40}50%{box-shadow:0 0 0 6px #f43f5e20}}
+
+/* — TWO COL — */
+.two-col{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:1.5rem}
+
+/* — COMPETITOR TABLE — */
+.table-wrap{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.table-head{
+  display:grid;padding:.65rem 1rem;
+  background:var(--panel2);border-bottom:1px solid var(--border);
+}
+.comp-table .table-head{grid-template-columns:1.8fr 1fr .8fr .8fr .7fr}
+.price-table .table-head{grid-template-columns:1.6fr .9fr .9fr .8fr}
+.th{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.table-row{
+  display:grid;padding:.7rem 1rem;border-bottom:1px solid var(--border);
+  font-size:12px;transition:background .12s;cursor:default;
+}
+.comp-table .table-row{grid-template-columns:1.8fr 1fr .8fr .8fr .7fr;align-items:center}
+.price-table .table-row{grid-template-columns:1.6fr .9fr .9fr .8fr;align-items:center}
+.table-row:last-child{border-bottom:none}
+.table-row:hover{background:#ffffff05}
+.comp-name{font-weight:500;color:var(--ink);font-size:12px}
+.comp-loc{font-size:10px;color:var(--ink3);margin-top:1px}
+.price-val{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink)}
+.price-val.lower{color:var(--green)}
+.price-val.higher{color:var(--red)}
+.rating{display:flex;align-items:center;gap:.3rem;font-size:11px;color:var(--gold)}
+.badge-sm{
+  font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:3px;
+}
+.badge-new{background:#3b82f620;color:var(--blue)}
+.badge-gap{background:#f43f5e20;color:var(--red);animation:blink-badge .8s step-end infinite}
+@keyframes blink-badge{0%,100%{opacity:1}50%{opacity:.5}}
+.badge-ok{background:#22c55e18;color:var(--green)}
+
+/* price change indicator */
+.pc-up{color:var(--red);font-family:'DM Mono',monospace;font-size:11px}
+.pc-dn{color:var(--green);font-family:'DM Mono',monospace;font-size:11px}
+.pc-flat{color:var(--ink3);font-family:'DM Mono',monospace;font-size:11px}
+
+/* — ALERTS PANEL — */
+.alerts-panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.alert-item{
+  padding:.9rem 1rem;border-bottom:1px solid var(--border);
+  display:flex;gap:.75rem;cursor:pointer;transition:background .12s;
+}
+.alert-item:last-child{border-bottom:none}
+.alert-item:hover{background:#ffffff05}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.ad-red{background:var(--red);box-shadow:0 0 6px #f43f5e60}
+.ad-gold{background:var(--gold)}
+.ad-green{background:var(--green)}
+.ad-blue{background:var(--blue)}
+.alert-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.alert-desc{font-size:11px;color:var(--ink3);line-height:1.45}
+.alert-time{font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;margin-top:3px}
+
+/* — BOTTOM ROW — */
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* — DEMAND CHART — */
+.chart-wrap{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.chart-area{position:relative;height:140px;margin-top:1rem}
+.chart-lines{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.chart-line{border-top:1px solid var(--border);width:100%;position:relative}
+.chart-label{position:absolute;left:0;top:-8px;font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3)}
+.chart-svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* — RECOMMENDATIONS — */
+.reco-wrap{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.reco-item{
+  display:flex;align-items:flex-start;gap:.75rem;
+  padding:.75rem 0;border-bottom:1px solid var(--border);
+}
+.reco-item:last-child{border-bottom:none}
+.reco-num{
+  width:22px;height:22px;border-radius:6px;flex-shrink:0;
+  background:var(--gold);display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:11px;color:#0b0e14;
+}
+.reco-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.reco-desc{font-size:11px;color:var(--ink3);line-height:1.4}
+.reco-action{
+  margin-top:.35rem;font-size:10px;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--gold);
+}
+
+/* — SOURCES STRIP — */
+.sources{display:flex;gap:8px;margin-top:1.5rem;flex-wrap:wrap}
+.src{
+  font-size:10px;font-weight:500;color:var(--ink3);
+  border:1px solid var(--border2);border-radius:4px;padding:4px 10px;
+  display:flex;align-items:center;gap:.35rem;font-family:'DM Mono',monospace;
+}
+.src-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+
+/* — FADE IN ANIMATIONS — */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.stat-strip{animation:fadeUp .4s ease both}
+.heatmap-wrap{animation:fadeUp .4s .08s ease both}
+.two-col{animation:fadeUp .4s .14s ease both}
+.bottom-row{animation:fadeUp .4s .2s ease both}
+
+/* — SCROLLBAR — */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--panel2);border-radius:3px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">NT</div>
+    <div>
+      <div class="logo-text">Namo Tradelink</div>
+      <div class="logo-sub">Market Intelligence Dashboard</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="last-updated" id="last-updated">Updated: 25 Mar 2026 · 09:42 AM</div>
+    <div class="live-badge"><span class="live-dot"></span>LIVE</div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="nav-section">
+      <span class="nav-section-label">Intelligence</span>
+      <div class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="9" width="3" height="6" rx="1" fill="currentColor"/><rect x="6" y="5" width="3" height="10" rx="1" fill="currentColor"/><rect x="11" y="1" width="3" height="14" rx="1" fill="currentColor"/></svg>
+        Demand Overview
+        <span class="nav-count">15</span>
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Price Tracker
+        <span class="nav-count red">3↑</span>
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M2 14L6 10 9 13 14 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="3" r="1.5" fill="currentColor"/></svg>
+        Competitor Watch
+        <span class="nav-count">8</span>
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M13 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.2"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Listing Gaps
+        <span class="nav-count red">4</span>
+      </div>
+    </div>
+    <div class="nav-section">
+      <span class="nav-section-label">Sources</span>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5S6 4 6 8s2 6.5 2 6.5M8 1.5S10 4 10 8s-2 6.5-2 6.5M1.5 8h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        IndiaMart
+        <span class="nav-count green">Live</span>
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5S6 4 6 8s2 6.5 2 6.5M8 1.5S10 4 10 8s-2 6.5-2 6.5M1.5 8h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        JustDial
+        <span class="nav-count green">Live</span>
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5S6 4 6 8s2 6.5 2 6.5M8 1.5S10 4 10 8s-2 6.5-2 6.5M1.5 8h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        TradeIndia
+        <span class="nav-count green">Live</span>
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5S6 4 6 8s2 6.5 2 6.5M8 1.5S10 4 10 8s-2 6.5-2 6.5M1.5 8h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Steel Portals
+        <span class="nav-count green">Live</span>
+      </div>
+    </div>
+    <div class="nav-section">
+      <span class="nav-section-label">Reports</span>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M3 2h7l3 3v9H3V2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M10 2v3h3M5 8h6M5 10.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Weekly Digest
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M13 11l-4-8-3 6-2-3-2 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        WhatsApp Alerts
+        <span class="nav-count green">ON</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- STAT STRIP -->
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-label">Enquiries tracked today</div>
+        <div class="stat-val">1,247</div>
+        <div class="stat-delta up">↑ 18% vs yesterday</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="--w:72%;width:72%;background:var(--blue)"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Products with demand spike</div>
+        <div class="stat-val">4 <span>/ 15</span></div>
+        <div class="stat-delta up">↑ TMT Bars, GI Sheets leading</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="--w:27%;width:27%;background:var(--red)"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Competitors monitored</div>
+        <div class="stat-val">8</div>
+        <div class="stat-delta up">↑ 2 new listings found</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="--w:80%;width:80%;background:var(--gold)"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Listing gaps vs competitors</div>
+        <div class="stat-val">4</div>
+        <div class="stat-delta down">Products competitors have, you don't</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="--w:26%;width:26%;background:var(--red)"></div></div>
+      </div>
+    </div>
+
+    <!-- DEMAND HEATMAP -->
+    <div class="heatmap-wrap">
+      <div class="section-hd">
+        <h2>Product Demand Heatmap <span class="sub">— enquiry volume across portals · last 24h</span></h2>
+        <div class="pill-filter">
+          <button class="pf active">All</button>
+          <button class="pf">IndiaMart</button>
+          <button class="pf">JustDial</button>
+        </div>
+      </div>
+      <div class="heatmap-grid">
+        <div class="hm-cell d-spike" title="Very high demand">
+          <div class="hm-product">TMT Bars</div>
+          <div class="hm-demand">312</div>
+          <div class="hm-change up">↑ +42% 🔥</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="hm-cell d-vhigh">
+          <div class="hm-product">GI Sheets</div>
+          <div class="hm-demand">248</div>
+          <div class="hm-change up">↑ +28%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:79%"></div></div>
+        </div>
+        <div class="hm-cell d-high">
+          <div class="hm-product">MS Pipes</div>
+          <div class="hm-demand">196</div>
+          <div class="hm-change up">↑ +12%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:63%"></div></div>
+        </div>
+        <div class="hm-cell d-high">
+          <div class="hm-product">HRC Sheets</div>
+          <div class="hm-demand">167</div>
+          <div class="hm-change up">↑ +19%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:53%"></div></div>
+        </div>
+        <div class="hm-cell d-med">
+          <div class="hm-product">MS Angles</div>
+          <div class="hm-demand">134</div>
+          <div class="hm-change down">↓ −4%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:43%"></div></div>
+        </div>
+        <div class="hm-cell d-med">
+          <div class="hm-product">CRC Sheets</div>
+          <div class="hm-demand">118</div>
+          <div class="hm-change up">↑ +6%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:38%"></div></div>
+        </div>
+        <div class="hm-cell d-med">
+          <div class="hm-product">MS Channels</div>
+          <div class="hm-demand">97</div>
+          <div class="hm-change down">↓ −2%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:31%"></div></div>
+        </div>
+        <div class="hm-cell d-med">
+          <div class="hm-product">Precoated Sheets</div>
+          <div class="hm-demand">86</div>
+          <div class="hm-change up">↑ +9%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:27%"></div></div>
+        </div>
+        <div class="hm-cell d-low">
+          <div class="hm-product">MS Plates</div>
+          <div class="hm-demand">71</div>
+          <div class="hm-change down">↓ −8%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:23%"></div></div>
+        </div>
+        <div class="hm-cell d-low">
+          <div class="hm-product">Binding Wire</div>
+          <div class="hm-demand">58</div>
+          <div class="hm-change down">↓ −1%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:19%"></div></div>
+        </div>
+        <div class="hm-cell d-low">
+          <div class="hm-product">Plate Cuttings</div>
+          <div class="hm-demand">44</div>
+          <div class="hm-change up">↑ +3%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:14%"></div></div>
+        </div>
+        <div class="hm-cell d-low">
+          <div class="hm-product">Foundation Bolts</div>
+          <div class="hm-demand">38</div>
+          <div class="hm-change down">↓ −5%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:12%"></div></div>
+        </div>
+        <div class="hm-cell d-low">
+          <div class="hm-product">Polycarbonate</div>
+          <div class="hm-demand">29</div>
+          <div class="hm-change down">↓ −11%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:9%"></div></div>
+        </div>
+        <div class="hm-cell d-low">
+          <div class="hm-product">Cement Sheets</div>
+          <div class="hm-demand">24</div>
+          <div class="hm-change down">↓ −3%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:8%"></div></div>
+        </div>
+        <div class="hm-cell d-low">
+          <div class="hm-product">Turbo Ventilator</div>
+          <div class="hm-demand">16</div>
+          <div class="hm-change down">↓ −14%</div>
+          <div class="hm-bar"><div class="hm-bar-fill" style="width:5%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TWO COL -->
+    <div class="two-col">
+
+      <!-- COMPETITOR TABLE -->
+      <div class="table-wrap comp-table">
+        <div class="section-hd" style="padding:1rem 1rem .5rem">
+          <h2>Competitor watch <span class="sub">— IndiaMart steel traders · Pune</span></h2>
+        </div>
+        <div class="table-head">
+          <div class="th">Competitor</div>
+          <div class="th">Top Product</div>
+          <div class="th">Avg Price</div>
+          <div class="th">Rating</div>
+          <div class="th">Status</div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Shree Steel Traders</div><div class="comp-loc">Pune-Satara Rd</div></div>
+          <div style="font-size:12px;color:var(--ink2)">TMT Bars</div>
+          <div class="price-val higher">₹62/kg</div>
+          <div class="rating">★ 4.7</div>
+          <div><span class="badge-sm badge-ok">Watch</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Mahavir Iron & Steel</div><div class="comp-loc">Hadapsar</div></div>
+          <div style="font-size:12px;color:var(--ink2)">GI Sheets</div>
+          <div class="price-val lower">₹54/kg</div>
+          <div class="rating">★ 4.5</div>
+          <div><span class="badge-sm badge-gap">Cheaper</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Ramdas Steel Centre</div><div class="comp-loc">Kothrud</div></div>
+          <div style="font-size:12px;color:var(--ink2)">MS Pipes</div>
+          <div class="price-val higher">₹78/kg</div>
+          <div class="rating">★ 4.3</div>
+          <div><span class="badge-sm badge-ok">Watch</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Ganesh Metal Mart</div><div class="comp-loc">Bibwewadi</div></div>
+          <div style="font-size:12px;color:var(--ink2)">CRC Sheets</div>
+          <div class="price-val lower">₹71/kg</div>
+          <div class="rating">★ 4.6</div>
+          <div><span class="badge-sm badge-gap">Cheaper</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Sainath Steel Works</div><div class="comp-loc">Pimpri</div></div>
+          <div style="font-size:12px;color:var(--ink2)">HRC Sheets</div>
+          <div class="price-val higher">₹66/kg</div>
+          <div class="rating">★ 4.1</div>
+          <div><span class="badge-sm badge-ok">Watch</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">New Lakshmi Traders</div><div class="comp-loc">Yerawada</div></div>
+          <div style="font-size:12px;color:var(--ink2)">Binding Wire</div>
+          <div class="price-val">₹58/kg</div>
+          <div class="rating">★ 3.9</div>
+          <div><span class="badge-sm badge-new">New</span></div>
+        </div>
+      </div>
+
+      <!-- ALERTS PANEL -->
+      <div>
+        <div class="section-hd">
+          <h2>Live alerts</h2>
+          <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--green)">4 new today</div>
+        </div>
+        <div class="alerts-panel">
+          <div class="alert-item">
+            <div class="alert-dot ad-red"></div>
+            <div>
+              <div class="alert-title">TMT Bar demand spike — act now</div>
+              <div class="alert-desc">312 enquiries in 24h, up 42%. Competitor Shree Steel is out of stock. Opportunity window open.</div>
+              <div class="alert-time">09:38 AM · IndiaMart</div>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-dot ad-red"></div>
+            <div>
+              <div class="alert-title">GI Sheet price drop — Mahavir at ₹54/kg</div>
+              <div class="alert-desc">Mahavir Iron undercut market by ₹6/kg. Review your GI Sheet pricing to stay competitive.</div>
+              <div class="alert-time">08:55 AM · Competitor scan</div>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-dot ad-gold"></div>
+            <div>
+              <div class="alert-title">MS Angles listing gap found</div>
+              <div class="alert-desc">3 competitors listing 50mm MS Angles — not found in your IndiaMart catalogue. Add to capture missed leads.</div>
+              <div class="alert-time">07:20 AM · Listing audit</div>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-dot ad-gold"></div>
+            <div>
+              <div class="alert-title">Steel HR coil price up ₹2,200/tonne</div>
+              <div class="alert-desc">SAIL & JSW increased HR coil price. Your HRC sheet cost will rise — consider forward buying today.</div>
+              <div class="alert-time">06:10 AM · Price tracker</div>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-dot ad-blue"></div>
+            <div>
+              <div class="alert-title">New competitor listed on IndiaMart</div>
+              <div class="alert-desc">New Lakshmi Traders (Yerawada) started selling Binding Wire. Added to watch list.</div>
+              <div class="alert-time">Yesterday · Portal scan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="bottom-row">
+
+      <!-- DEMAND TREND CHART -->
+      <div class="chart-wrap">
+        <div class="section-hd">
+          <h2>Weekly demand trend <span class="sub">— TMT Bars vs GI Sheets</span></h2>
+        </div>
+        <div class="chart-area">
+          <div class="chart-lines">
+            <div class="chart-line"><span class="chart-label">300</span></div>
+            <div class="chart-line"><span class="chart-label">200</span></div>
+            <div class="chart-line"><span class="chart-label">100</span></div>
+            <div class="chart-line"><span class="chart-label">0</span></div>
+          </div>
+          <svg class="chart-svg" viewBox="0 0 400 140" preserveAspectRatio="none">
+            <!-- TMT Bars line -->
+            <polyline points="0,110 57,100 114,95 171,85 228,75 285,60 342,30 400,10"
+              fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="0,110 57,100 114,95 171,85 228,75 285,60 342,30 400,10"
+              fill="none" stroke="#f43f5e40" stroke-width="12"/>
+            <!-- GI Sheets line -->
+            <polyline points="0,95 57,90 114,88 171,80 228,70 285,58 342,45 400,30"
+              fill="none" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Day labels -->
+            <text x="0" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Mon</text>
+            <text x="52" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Tue</text>
+            <text x="104" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Wed</text>
+            <text x="156" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Thu</text>
+            <text x="208" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Fri</text>
+            <text x="260" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Sat</text>
+            <text x="312" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Sun</text>
+            <text x="365" y="135" font-size="9" fill="#6b7a94" font-family="DM Mono,monospace">Today</text>
+          </svg>
+        </div>
+        <div style="display:flex;gap:1.25rem;margin-top:.75rem">
+          <div style="display:flex;align-items:center;gap:.4rem;font-size:11px;color:var(--ink3)">
+            <span style="width:14px;height:2px;background:var(--red);display:inline-block;border-radius:1px"></span>TMT Bars
+          </div>
+          <div style="display:flex;align-items:center;gap:.4rem;font-size:11px;color:var(--ink3)">
+            <span style="width:14px;height:2px;background:var(--gold);display:inline-block;border-radius:1px"></span>GI Sheets
+          </div>
+        </div>
+      </div>
+
+      <!-- AI RECOMMENDATIONS -->
+      <div class="reco-wrap">
+        <div class="section-hd">
+          <h2>AI stock recommendations</h2>
+          <div style="font-size:10px;color:var(--gold);font-family:'DM Mono',monospace">Based on today's data</div>
+        </div>
+        <div class="reco-item">
+          <div class="reco-num">1</div>
+          <div>
+            <div class="reco-title">Buy TMT Bars — high urgency</div>
+            <div class="reco-desc">Demand up 42%, Shree Steel out of stock. Strong buyer window open in Pune. Stock 20–30 MT before competitors restock.</div>
+            <div class="reco-action">→ Buy now</div>
+          </div>
+        </div>
+        <div class="reco-item">
+          <div class="reco-num">2</div>
+          <div>
+            <div class="reco-title">Review GI Sheet pricing</div>
+            <div class="reco-desc">Mahavir at ₹54/kg undercuts market. Check your margin and consider matching or differentiating on delivery speed.</div>
+            <div class="reco-action">→ Review price</div>
+          </div>
+        </div>
+        <div class="reco-item">
+          <div class="reco-num">3</div>
+          <div>
+            <div class="reco-title">Add 50mm MS Angles to IndiaMart</div>
+            <div class="reco-desc">3 competitors listing this size, 68 enquiries this week. Missing product in your catalogue = missed leads.</div>
+            <div class="reco-action">→ Update listing</div>
+          </div>
+        </div>
+        <div class="reco-item">
+          <div class="reco-num">4</div>
+          <div>
+            <div class="reco-title">Forward buy HRC Sheets</div>
+            <div class="reco-desc">SAIL/JSW price hike imminent. Buy 15–20 MT at current rates before cost increase passes through to market.</div>
+            <div class="reco-action">→ Contact supplier</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SOURCES -->
+    <div class="sources">
+      <div style="font-size:11px;color:var(--ink3);align-self:center;margin-right:.25rem">Data sources:</div>
+      <div class="src"><span class="src-dot"></span>IndiaMart · 847 listings scanned</div>
+      <div class="src"><span class="src-dot"></span>JustDial · 312 enquiries</div>
+      <div class="src"><span class="src-dot"></span>TradeIndia · 88 listings</div>
+      <div class="src"><span class="src-dot"></span>SAIL Price Portal</div>
+      <div class="src"><span class="src-dot"></span>JSW Steel</div>
+      <div class="src"><span class="src-dot"></span>Tata Steel India</div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+document.querySelectorAll('.pf').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pf').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// Live update ticker
+const liveEl = document.getElementById('last-updated');
+setInterval(() => {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2, '0');
+  const m = now.getMinutes().toString().padStart(2, '0');
+  const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+  liveEl.textContent = `Updated: 25 Mar 2026 · ${h}:${m} ${ampm}`;
+}, 60000);
+</script>
+</body>
+</html>
