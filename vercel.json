@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/NamoTradelink_MarketIntelligence_Dashboard.html" }
+  ]
+}
