@@ -212,6 +212,29 @@ main{padding:1.75rem 2rem;overflow-y:auto}
 .digest-highlight{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
 .digest-highlight h3{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--ink);margin-bottom:.75rem}
 
+/* LEAD PAGES */
+.lead-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:10px;transition:border-color .2s;cursor:default}
+.lead-card:hover{border-color:var(--border2)}
+.lead-card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem}
+.lead-name{font-size:13px;font-weight:600;color:var(--ink)}
+.lead-meta{font-size:11px;color:var(--ink3);margin-bottom:.5rem}
+.lead-product{font-size:12px;color:var(--ink2)}
+.lead-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.65rem}
+.lead-source{font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3)}
+.lead-time{font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3)}
+.lead-table .table-head{grid-template-columns:1.8fr 1.2fr 1fr .8fr .8fr}
+.lead-table .table-row{grid-template-columns:1.8fr 1.2fr 1fr .8fr .8fr;align-items:center}
+.outbound-table .table-head{grid-template-columns:1.8fr 1.2fr 1fr .8fr .8fr}
+.outbound-table .table-row{grid-template-columns:1.8fr 1.2fr 1fr .8fr .8fr;align-items:center}
+.badge-follow{background:#14b8a620;color:var(--teal)}
+.badge-quoted{background:#3b82f620;color:var(--blue)}
+.badge-won{background:#22c55e20;color:var(--green)}
+.badge-lost{background:#f43f5e20;color:var(--red)}
+.badge-pending{background:#f5a62320;color:var(--gold)}
+.badge-called{background:#8b5cf620;color:#a78bfa}
+.pipeline-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-top:.5rem;gap:2px}
+.pb-seg{height:100%;border-radius:2px}
+
 /* WHATSAPP PAGE */
 .wa-status-card{background:var(--panel);border:1px solid #22c55e30;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
 .wa-icon{width:48px;height:48px;border-radius:12px;background:#22c55e20;display:flex;align-items:center;justify-content:center}
@@ -292,6 +315,19 @@ main{padding:1.75rem 2rem;overflow-y:auto}
         <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5S6 4 6 8s2 6.5 2 6.5M8 1.5S10 4 10 8s-2 6.5-2 6.5M1.5 8h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
         Steel Portals
         <span class="nav-count green">Live</span>
+      </div>
+    </div>
+    <div class="nav-section">
+      <span class="nav-section-label">Leads</span>
+      <div class="nav-item" data-page="lead-inbound">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Lead Inbound
+        <span class="nav-count green">12</span>
+      </div>
+      <div class="nav-item" data-page="lead-outbound">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 14V6M4 10l4-4 4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 3h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Lead Outbound
+        <span class="nav-count">9</span>
       </div>
     </div>
     <div class="nav-section">
@@ -1015,6 +1051,303 @@ main{padding:1.75rem 2rem;overflow-y:auto}
             <div class="alert-item"><div class="alert-dot ad-blue"></div><div><div class="alert-title">New competitor alert sent</div><div class="alert-desc">"New Lakshmi Traders (Yerawada) listed Binding Wire at ₹56/kg on IndiaMart. Added to watch."</div><div class="alert-time">Yesterday 04:15 PM · Delivered ✓</div></div></div>
             <div class="alert-item"><div class="alert-dot ad-gold"></div><div><div class="alert-title">Weekly digest sent</div><div class="alert-desc">"Your Apr 1–7 market intelligence report: TMT spike, 4 listing gaps, 2 new competitors. See dashboard."</div><div class="alert-time">Apr 7 08:00 AM · Delivered ✓</div></div></div>
           </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PAGE: LEAD INBOUND -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="page" id="page-lead-inbound">
+      <div class="page-title">Lead Inbound</div>
+      <div class="page-subtitle">Buyer enquiries received from IndiaMart, JustDial & TradeIndia · today</div>
+
+      <div class="stat-strip">
+        <div class="stat">
+          <div class="stat-label">New leads today</div>
+          <div class="stat-val" style="color:var(--green)">12</div>
+          <div class="stat-delta up">↑ 4 more than yesterday</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:60%;background:var(--green)"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Leads this week</div>
+          <div class="stat-val">47</div>
+          <div class="stat-delta up">↑ 22% vs last week</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:70%;background:var(--blue)"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Avg response time</div>
+          <div class="stat-val">28<span> min</span></div>
+          <div class="stat-delta up">↑ Better than platform avg (45 min)</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:62%;background:var(--teal)"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Conversion rate</div>
+          <div class="stat-val">34<span>%</span></div>
+          <div class="stat-delta up">↑ 6% vs last month</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:34%;background:var(--gold)"></div></div>
+        </div>
+      </div>
+
+      <!-- pipeline bar -->
+      <div class="reco-wrap" style="margin-bottom:1.5rem">
+        <div class="section-hd"><h2>Lead pipeline — this week</h2><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3)">47 total leads</div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);margin-bottom:.4rem">
+          <span>New <b style="color:var(--ink)">18</b></span>
+          <span>Contacted <b style="color:var(--ink)">12</b></span>
+          <span>Quoted <b style="color:var(--ink)">9</b></span>
+          <span>Won <b style="color:var(--green)">6</b></span>
+          <span>Lost <b style="color:var(--red)">2</b></span>
+        </div>
+        <div class="pipeline-bar">
+          <div class="pb-seg" style="width:38%;background:var(--blue)"></div>
+          <div class="pb-seg" style="width:26%;background:var(--teal)"></div>
+          <div class="pb-seg" style="width:19%;background:var(--gold)"></div>
+          <div class="pb-seg" style="width:13%;background:var(--green)"></div>
+          <div class="pb-seg" style="width:4%;background:var(--red)"></div>
+        </div>
+        <div style="display:flex;gap:1rem;margin-top:.75rem;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:.3rem;font-size:10px;color:var(--ink3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--blue);display:inline-block"></span>New</span>
+          <span style="display:flex;align-items:center;gap:.3rem;font-size:10px;color:var(--ink3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--teal);display:inline-block"></span>Contacted</span>
+          <span style="display:flex;align-items:center;gap:.3rem;font-size:10px;color:var(--ink3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--gold);display:inline-block"></span>Quoted</span>
+          <span style="display:flex;align-items:center;gap:.3rem;font-size:10px;color:var(--ink3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--green);display:inline-block"></span>Won</span>
+          <span style="display:flex;align-items:center;gap:.3rem;font-size:10px;color:var(--ink3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--red);display:inline-block"></span>Lost</span>
+        </div>
+      </div>
+
+      <!-- inbound leads table -->
+      <div class="section-hd"><h2>All inbound leads <span class="sub">— today + yesterday</span></h2>
+        <div class="pill-filter">
+          <button class="pf active">All</button>
+          <button class="pf">New</button>
+          <button class="pf">Quoted</button>
+          <button class="pf">Won</button>
+        </div>
+      </div>
+      <div class="table-wrap lead-table">
+        <div class="table-head"><div class="th">Buyer</div><div class="th">Product enquired</div><div class="th">Source</div><div class="th">Value est.</div><div class="th">Status</div></div>
+        <div class="table-row">
+          <div><div class="comp-name">Rajan Constructions</div><div class="comp-loc">Pune · +91 98201 XXXXX</div></div>
+          <div class="lead-product">TMT Bars Fe-500 · 15 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Today 09:12 AM</div>
+          <div class="price-val">₹9.3L</div>
+          <div><span class="badge-sm badge-new">New</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Akshay Infratech</div><div class="comp-loc">Pimpri · +91 97654 XXXXX</div></div>
+          <div class="lead-product">GI Sheets 0.5mm · 8 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Today 08:44 AM</div>
+          <div class="price-val">₹4.6L</div>
+          <div><span class="badge-sm badge-quoted">Quoted</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Suresh Fabricators</div><div class="comp-loc">Hadapsar · +91 94221 XXXXX</div></div>
+          <div class="lead-product">MS Pipes 3/4" · 5 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">JustDial<br>Today 08:10 AM</div>
+          <div class="price-val">₹3.9L</div>
+          <div><span class="badge-sm badge-ok">Contacted</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Deepak Steels Pvt Ltd</div><div class="comp-loc">Kothrud · +91 88050 XXXXX</div></div>
+          <div class="lead-product">HRC Sheets 2mm · 20 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Today 07:55 AM</div>
+          <div class="price-val">₹13.2L</div>
+          <div><span class="badge-sm badge-new">New</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Vikram Sheds & Shelters</div><div class="comp-loc">Wakad · +91 70210 XXXXX</div></div>
+          <div class="lead-product">Precoated Sheets · 6 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">JustDial<br>Today 07:30 AM</div>
+          <div class="price-val">₹4.9L</div>
+          <div><span class="badge-sm badge-won">Won ✓</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Pune Civil Contractors</div><div class="comp-loc">Yerawada · +91 99220 XXXXX</div></div>
+          <div class="lead-product">TMT Bars Fe-500 · 25 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Yesterday 05:10 PM</div>
+          <div class="price-val">₹15.5L</div>
+          <div><span class="badge-sm badge-quoted">Quoted</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Sanket Hardware</div><div class="comp-loc">Bibwewadi · +91 91580 XXXXX</div></div>
+          <div class="lead-product">Binding Wire · 2 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">TradeIndia<br>Yesterday 03:45 PM</div>
+          <div class="price-val">₹1.2L</div>
+          <div><span class="badge-sm badge-ok">Contacted</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Omkar Infrastructure</div><div class="comp-loc">Hinjewadi · +91 85210 XXXXX</div></div>
+          <div class="lead-product">MS Angles 50mm · 10 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Yesterday 02:20 PM</div>
+          <div class="price-val">₹6.8L</div>
+          <div><span class="badge-sm badge-lost">Lost</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Mahesh Steel Depot</div><div class="comp-loc">Camp · +91 96740 XXXXX</div></div>
+          <div class="lead-product">CRC Sheets 1mm · 7 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">JustDial<br>Yesterday 11:30 AM</div>
+          <div class="price-val">₹5.2L</div>
+          <div><span class="badge-sm badge-won">Won ✓</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Rohit Fabrication Works</div><div class="comp-loc">Pimpri-Chinchwad · +91 77020 XXXXX</div></div>
+          <div class="lead-product">MS Plates 6mm · 12 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Yesterday 10:05 AM</div>
+          <div class="price-val">₹8.4L</div>
+          <div><span class="badge-sm badge-quoted">Quoted</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Anand Construction</div><div class="comp-loc">Katraj · +91 93210 XXXXX</div></div>
+          <div class="lead-product">GI Sheets 0.8mm · 4 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">JustDial<br>Yesterday 09:40 AM</div>
+          <div class="price-val">₹2.3L</div>
+          <div><span class="badge-sm badge-new">New</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Sai Enterprises</div><div class="comp-loc">Swargate · +91 82110 XXXXX</div></div>
+          <div class="lead-product">MS Channels 75mm · 8 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Yesterday 08:55 AM</div>
+          <div class="price-val">₹5.7L</div>
+          <div><span class="badge-sm badge-ok">Contacted</span></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PAGE: LEAD OUTBOUND -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="page" id="page-lead-outbound">
+      <div class="page-title">Lead Outbound</div>
+      <div class="page-subtitle">Buyers you are proactively reaching out to · based on demand signals & market intelligence</div>
+
+      <div class="stat-strip">
+        <div class="stat">
+          <div class="stat-label">Outbound leads active</div>
+          <div class="stat-val">9</div>
+          <div class="stat-delta up">↑ 3 added this week</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:45%;background:var(--blue)"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Calls made today</div>
+          <div class="stat-val">6</div>
+          <div class="stat-delta up">4 connected · 2 pending</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:60%;background:var(--teal)"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Quotes sent this week</div>
+          <div class="stat-val">4</div>
+          <div class="stat-delta up">₹28L total pipeline value</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:40%;background:var(--gold)"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Outbound win rate</div>
+          <div class="stat-val">28<span>%</span></div>
+          <div class="stat-delta down">↓ Below inbound (34%)</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:28%;background:var(--red)"></div></div>
+        </div>
+      </div>
+
+      <!-- AI suggested targets -->
+      <div class="section-hd"><h2>AI suggested targets <span class="sub">— buyers showing demand signals</span></h2>
+        <div style="font-size:10px;color:var(--gold);font-family:'DM Mono',monospace">Based on portal activity</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.5rem">
+        <div class="lead-card" style="border-color:#f5a62330">
+          <div class="lead-card-hd"><div class="lead-name">Bharat Infra Projects</div><span class="badge-sm badge-high">Hot</span></div>
+          <div class="lead-meta">Searched TMT Bars 4x on IndiaMart in 2 days</div>
+          <div class="lead-product">TMT Bars Fe-500 · Est. 30 MT · ₹18.6L</div>
+          <div class="lead-footer"><span class="lead-source">IndiaMart signal</span><span class="reco-action">→ Call now</span></div>
+        </div>
+        <div class="lead-card" style="border-color:#f5a62330">
+          <div class="lead-card-hd"><div class="lead-name">Kamla Roofing Co.</div><span class="badge-sm badge-high">Hot</span></div>
+          <div class="lead-meta">Enquired GI Sheets on JustDial · no reply received yet</div>
+          <div class="lead-product">GI Sheets 0.5mm · Est. 10 MT · ₹5.8L</div>
+          <div class="lead-footer"><span class="lead-source">JustDial signal</span><span class="reco-action">→ Call now</span></div>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-hd"><div class="lead-name">Patel Construction Pvt</div><span class="badge-sm badge-med">Warm</span></div>
+          <div class="lead-meta">Viewed your IndiaMart profile 3 times this week</div>
+          <div class="lead-product">MS Pipes + TMT · Est. 18 MT · ₹12.4L</div>
+          <div class="lead-footer"><span class="lead-source">IndiaMart signal</span><span class="reco-action">→ Send quote</span></div>
+        </div>
+      </div>
+
+      <!-- outbound leads table -->
+      <div class="section-hd"><h2>All outbound leads</h2>
+        <div class="pill-filter">
+          <button class="pf active">All</button>
+          <button class="pf">Pending call</button>
+          <button class="pf">Quoted</button>
+          <button class="pf">Won</button>
+        </div>
+      </div>
+      <div class="table-wrap outbound-table">
+        <div class="table-head"><div class="th">Prospect</div><div class="th">Product / Est. Qty</div><div class="th">Source signal</div><div class="th">Est. value</div><div class="th">Status</div></div>
+        <div class="table-row">
+          <div><div class="comp-name">Bharat Infra Projects</div><div class="comp-loc">Shivajinagar · +91 98110 XXXXX</div></div>
+          <div class="lead-product">TMT Bars · 30 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>4 searches / 2 days</div>
+          <div class="price-val">₹18.6L</div>
+          <div><span class="badge-sm badge-pending">Call pending</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Kamla Roofing Co.</div><div class="comp-loc">Hadapsar · +91 95010 XXXXX</div></div>
+          <div class="lead-product">GI Sheets · 10 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">JustDial<br>No response to enq.</div>
+          <div class="price-val">₹5.8L</div>
+          <div><span class="badge-sm badge-pending">Call pending</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Patel Construction Pvt</div><div class="comp-loc">Kothrud · +91 92210 XXXXX</div></div>
+          <div class="lead-product">MS Pipes + TMT · 18 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>3 profile views</div>
+          <div class="price-val">₹12.4L</div>
+          <div><span class="badge-sm badge-quoted">Quoted</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Nagar Developers</div><div class="comp-loc">Baner · +91 88770 XXXXX</div></div>
+          <div class="lead-product">HRC Sheets · 22 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">Demand spike alert<br>Apr 7</div>
+          <div class="price-val">₹14.5L</div>
+          <div><span class="badge-sm badge-called">Called ✓</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Swaroop Shed Works</div><div class="comp-loc">Talegaon · +91 96300 XXXXX</div></div>
+          <div class="lead-product">Precoated Sheets · 9 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">JustDial<br>Repeated search</div>
+          <div class="price-val">₹7.3L</div>
+          <div><span class="badge-sm badge-won">Won ✓</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Rajhans Fabrication</div><div class="comp-loc">Pimpri · +91 73220 XXXXX</div></div>
+          <div class="lead-product">CRC Sheets · 11 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">Competitor out of stock<br>signal</div>
+          <div class="price-val">₹8.2L</div>
+          <div><span class="badge-sm badge-quoted">Quoted</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Galaxy Steel Traders</div><div class="comp-loc">Chinchwad · +91 81230 XXXXX</div></div>
+          <div class="lead-product">MS Angles · 14 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">TradeIndia<br>Listing gap signal</div>
+          <div class="price-val">₹9.5L</div>
+          <div><span class="badge-sm badge-called">Called ✓</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Vasant Hardware Store</div><div class="comp-loc">Camp · +91 99880 XXXXX</div></div>
+          <div class="lead-product">Binding Wire · 3 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">JustDial<br>Repeat buyer</div>
+          <div class="price-val">₹1.8L</div>
+          <div><span class="badge-sm badge-won">Won ✓</span></div>
+        </div>
+        <div class="table-row">
+          <div><div class="comp-name">Krishna Civil Works</div><div class="comp-loc">Kondhwa · +91 78140 XXXXX</div></div>
+          <div class="lead-product">TMT Bars Fe-500 · 20 MT</div>
+          <div style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">IndiaMart<br>Price alert signal</div>
+          <div class="price-val">₹12.6L</div>
+          <div><span class="badge-sm badge-pending">Call pending</span></div>
         </div>
       </div>
     </div>
